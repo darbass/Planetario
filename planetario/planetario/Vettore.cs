@@ -32,7 +32,22 @@ namespace planetario
         {
             return new Vettore((a.x - b.x), (a.y - b.y));
         }
-
+        public static Vettore operator *(Vettore a, double b)
+        {
+            return new Vettore((a.x * b), (a.y * b));
+        }
+        public static Vettore operator *(double b, Vettore a)
+        {
+            return new Vettore((a.x * b), (a.y * b));
+        }
+        public static Vettore operator /(Vettore a, double b)
+        {
+            return new Vettore((a.x / b), (a.y / b));
+        }
+        public static Vettore operator /(double b, Vettore a)
+        {
+            return new Vettore((b/a.x), (b/a.y));
+        }
         public double Modulo()
         {
             return Math.Sqrt( Math.Pow(2,x) + Math.Pow(2,y) );

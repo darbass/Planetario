@@ -26,17 +26,17 @@ namespace planetario
             this.WindowState = FormWindowState.Maximized;
             tempo.Enabled = false;
 
-            Pianeta b = new Pianeta(0, 500, 8000000, 30);
+            Pianeta b = new Pianeta(500, 200, 800000000, 30);
 
-            b.velocita = new Vettore(10,0);
+            b.velocita = new Vettore(0,0);
             b.Forza= new Vettore(0, 0);
             b.accellerazione= new Vettore(0,0);
             b.stampapianeta(this);
             pianeti.Add(b);
 
-            Pianeta c = new Pianeta(700, 300, 300, 30);
+            Pianeta c = new Pianeta(0, 500, 30000, 30);
 
-            c.velocita = new Vettore(0, 0);
+            c.velocita = new Vettore(5, 0);
             c.Forza = new Vettore(0, 0);
             c.accellerazione = new Vettore(0, 0);
             c.stampapianeta(this);
@@ -96,28 +96,37 @@ namespace planetario
             double dx = pianeta1.X - pianeta2.X;
             double dy = pianeta1.Y - pianeta2.Y;
 
-            //crazione vettore forza
-            Vettore forza= new Vettore(G * ((pianeta1.massa + pianeta2.massa) / Math.Pow(dx, 2)), G * ((pianeta1.massa + pianeta2.massa) / Math.Pow(dy, 2)));
+            double ModForza = G * ((pianeta1.massa + pianeta2.massa) / (Math.Pow(dx, 2) + Math.Pow(dy, 2)));
 
-            //somma vettoriale con la forza precedente
-            if (dx > 0)
+            Vettore cp1 = new Vettore(pianeta1.X, pianeta1.Y);
+            Vettore cp2 = new Vettore(pianeta2.X, pianeta2.Y);
+
+
+            pianeta1.Forza += (cp1 - cp2) / (cp1.Modulo() + cp2.Modulo()) * ModForza;
+            pianeta2.Forza += (cp2 - cp1) / (cp2.Modulo() + cp1.Modulo()) * ModForza;
+
+
+            //somma vettoriale con la forza precedente (trovare metodo piu carino)
+            /*if (dx > 0)
             {
-                pianeta1.Forza.x -= forza.x;
+                pianeta1.Forza -= new Vettore (forza.x, 0);
+                pianeta2.Forza += new Vettore (forza.x, 0);
             }
             else
-            { 
-            
+            {
+                pianeta1.Forza += new Vettore(forza.x, 0);
+                pianeta2.Forza -= new Vettore(forza.x, 0);
             }
             if (dy> 0)
             {
-
+                pianeta1.Forza -= new Vettore(0, forza.y);
+                pianeta2.Forza += new Vettore(0, forza.y);
             }
             else 
-            { 
-            
-            }
-            pianeta1.Forza += forza;
-            pianeta2.Forza += forza;
+            {
+                pianeta1.Forza += new Vettore(0, forza.y);
+                pianeta2.Forza -= new Vettore(0, forza.y);
+            }*/
         }
         private void CalcolaAccellerazioni()
         {
