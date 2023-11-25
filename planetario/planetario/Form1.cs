@@ -98,15 +98,18 @@ namespace planetario
             double dx = pianeta1.X - pianeta2.X;
             double dy = pianeta1.Y - pianeta2.Y;
 
-            double ModForza = G * ((pianeta1.massa + pianeta2.massa) / (Math.Pow(dx, 2) + Math.Pow(dy, 2)));
+            double ModForza = G * (pianeta1.massa + pianeta2.massa) / ( Math.Pow(dx, 2) + Math.Pow(dy, 2) )  ;
 
             Vettore cp1 = new Vettore(pianeta1.X, pianeta1.Y);
             Vettore cp2 = new Vettore(pianeta2.X, pianeta2.Y);
+            Vettore forza2 = cp1 - cp2;
+            Vettore forza1 = cp2 - cp1;
 
+            forza1 = (forza1 / forza1.Modulo()) * ModForza;
+            forza2 = (forza2 / forza2.Modulo()) * ModForza;
 
-            pianeta1.Forza += (cp2 - cp1) / (cp2.Modulo() - cp1.Modulo()) * ModForza;
-            pianeta2.Forza += (cp1 - cp2) / (cp1.Modulo() - cp2.Modulo()) * ModForza;
-
+            pianeta1.Forza += forza1;
+            pianeta2.Forza += forza2;
 
             //somma vettoriale con la forza precedente (trovare metodo piu carino)
             /*if (dx > 0)
