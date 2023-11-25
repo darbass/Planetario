@@ -40,7 +40,7 @@ namespace planetario
         {
             return new Vettore((a.x * b), (a.y * b));
         }
-        public static Vettore operator /(Vettore a, double b)
+        public static Vettore operator / (Vettore a, double b)
         {
             return new Vettore((a.x / b), (a.y / b));
         }
@@ -50,7 +50,7 @@ namespace planetario
         }
         public double Modulo()
         {
-            return Math.Sqrt( Math.Pow(2,x) + Math.Pow(2,y) );
+            return Math.Sqrt( Math.Pow(x,2) + Math.Pow(y,2) );
         }
     }
 }

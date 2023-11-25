@@ -14,7 +14,7 @@ namespace planetario
     public partial class Form1 : Form
     {
         List<Pianeta> pianeti = new List<Pianeta>();
-        double G = 6.67 * Math.Pow(10, -2);
+        double G = 6.67 * Math.Pow(10, -3);
         int secpertic = 1; //per ogni tic passano 3600 sec
         int i = 0;
         public Form1()
@@ -26,7 +26,7 @@ namespace planetario
             this.WindowState = FormWindowState.Maximized;
             tempo.Enabled = false;
 
-            Pianeta b = new Pianeta(500, 200, 800000000, 30);
+           Pianeta b = new Pianeta(500, 200, 800000000, 30);
 
             b.velocita = new Vettore(0,0);
             b.Forza= new Vettore(0, 0);
@@ -34,9 +34,11 @@ namespace planetario
             b.stampapianeta(this);
             pianeti.Add(b);
 
-            Pianeta c = new Pianeta(0, 500, 30000, 30);
+            Pianeta c = new Pianeta(1200
+                
+                , 500, 300, 30);
 
-            c.velocita = new Vettore(5, 0);
+            c.velocita = new Vettore(0, 0);
             c.Forza = new Vettore(0, 0);
             c.accellerazione = new Vettore(0, 0);
             c.stampapianeta(this);
@@ -102,8 +104,8 @@ namespace planetario
             Vettore cp2 = new Vettore(pianeta2.X, pianeta2.Y);
 
 
-            pianeta1.Forza += (cp1 - cp2) / (cp1.Modulo() + cp2.Modulo()) * ModForza;
-            pianeta2.Forza += (cp2 - cp1) / (cp2.Modulo() + cp1.Modulo()) * ModForza;
+            pianeta1.Forza += (cp2 - cp1) / (cp2.Modulo() - cp1.Modulo()) * ModForza;
+            pianeta2.Forza += (cp1 - cp2) / (cp1.Modulo() - cp2.Modulo()) * ModForza;
 
 
             //somma vettoriale con la forza precedente (trovare metodo piu carino)
