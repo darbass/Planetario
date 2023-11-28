@@ -27,7 +27,6 @@ namespace planetario
         {
             return new Vettore((a.x + b.x), (a.y + b.y));   
         }
-
         public static Vettore operator - (Vettore a, Vettore b)
         {
             return new Vettore((a.x - b.x), (a.y - b.y));

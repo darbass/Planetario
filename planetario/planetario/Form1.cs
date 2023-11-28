@@ -44,9 +44,18 @@ namespace planetario
 
             planetario1.StampaPlanetario(this);
         }
+        private void tempo_Tick(object sender, EventArgs e)
+        {
+            planetario1.StampaPlanetario(this);
+            b++;
+            /*if (b%5==0) 
+            {
+                Console.WriteLine(". {0}", b);
+            }*/
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (i==0)
+            if (i == 0)
             {
                 tempo.Enabled = true;
                 i++;
@@ -55,17 +64,6 @@ namespace planetario
             {
                 tempo.Enabled = false;
                 i--;
-            }           
-        }
-
-        private void tempo_Tick(object sender, EventArgs e)
-        {
-            planetario1.StampaPlanetario(this);
-            b++;
-            if (b%5==0) 
-            {
-                Console.WriteLine(". {0}", b);
-
             }
         }
     }

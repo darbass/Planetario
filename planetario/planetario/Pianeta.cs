@@ -41,6 +41,10 @@ namespace planetario
             this.massa = Massa;
         }
 
+        public void stampapianeta(Graphics g)
+        {
+
+        }
         public void stampapianeta(Form form)
         {     
             this.Location = new Point(this.Left, this.Top);

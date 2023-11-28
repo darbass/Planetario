@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace planetario
             this.mtperpix = metrixpix;
         }
         
-        public void StampaPlanetario(Form form)
+        public void StampaPlanetario(Graphics g)
         {
             CalcolaForze();
             CalcolaAccellerazioni();
@@ -30,17 +31,42 @@ namespace planetario
             {
                 //moltiplico per secpertic in quanto se tenessimo un secondo per tic la simulazione impiegherebbe troppo temp0
                 //utilizzo math.round perche il cast tronca il valore = meno preciso
-                pianeta.Left += (int) Math.Round(pianeta.velocita.x * secpertic);
-                pianeta.Top += (int) Math.Round(pianeta.velocita.y * secpertic);
+                pianeta.Left += (int)Math.Round(pianeta.velocita.x * secpertic);
+                pianeta.Top += (int)Math.Round(pianeta.velocita.y * secpertic);
 
-                pianeta.stampapianeta(form);
+                pianeta.stampapianeta(g);
 
                 //cancella forze e accellerazioni
                 pianeta.Forza = new Vettore(0, 0);
                 pianeta.accellerazione = new Vettore(0, 0);
             }
         }
+        public void StampaPlanetario(Form form)
+        {
+            CalcolaForze();
+            CalcolaAccellerazioni();
+            CalcolaVelocita();
 
+            //spostamento pianeti
+            foreach (var pianeta in pianeti)
+            {
+                //moltiplico per secpertic in quanto se tenessimo un secondo per tic la simulazione impiegherebbe troppo temp0
+                //utilizzo math.round perche il cast tronca il valore = meno preciso
+                pianeta.Left += (int) Math.Round(pianeta.velocita.x * secpertic);
+                pianeta.Top += (int) Math.Round(pianeta.velocita.y * secpertic);
+                
+                pianeta.X += (int)Math.Round(pianeta.velocita.x * secpertic);
+                pianeta.Y += (int)Math.Round(pianeta.velocita.y * secpertic);
+
+                pianeta.stampapianeta(form);
+
+                Console.WriteLine(pianeta.X + " " + pianeta.Y);
+
+                //cancella forze e accellerazioni
+                pianeta.Forza = new Vettore(0, 0);
+                //pianeta.accellerazione = new Vettore(0, 0);
+            }
+        }
         private void CalcolaForze()
         {
             if (pianeti.Count > 1)
@@ -66,7 +92,7 @@ namespace planetario
             Vettore cp1 = new Vettore(pianeta1.X, pianeta1.Y);
             Vettore cp2 = new Vettore(pianeta2.X, pianeta2.Y);
             Vettore forza1 = cp2 - cp1;
-            Vettore forza2 = -1 * forza1;  
+            Vettore forza2 = -1 * forza1;
 
             forza1 = (forza1 / forza1.Modulo()) * ModForza;
             forza2 = (forza2 / forza2.Modulo()) * ModForza;
@@ -78,7 +104,7 @@ namespace planetario
         {
             foreach (var pianeta in pianeti)
             {
-                pianeta.accellerazione = new Vettore(pianeta.Forza.x / pianeta.massa, pianeta.Forza.y / pianeta.massa);
+                pianeta.accellerazione = pianeta.Forza/pianeta.massa;
             }
         }
         private void CalcolaVelocita()
@@ -86,10 +112,8 @@ namespace planetario
             foreach (var pianeta in pianeti)
             {
                 //moltiplico per secpertic in quanto se tenessimo un secondo per tic la simulazione impiegherebbe troppo tempo
-                pianeta.velocita = new Vettore(pianeta.velocita.x + pianeta.accellerazione.x * secpertic, pianeta.velocita.y + pianeta.accellerazione.y * secpertic);
+                pianeta.velocita += pianeta.accellerazione * secpertic;
             }
         }
-        
-
     }
 }
