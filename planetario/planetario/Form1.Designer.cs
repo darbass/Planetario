@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.tempo = new System.Windows.Forms.Timer(this.components);
+            this.BtnCG = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -45,8 +46,17 @@
             // 
             // tempo
             // 
-            this.tempo.Interval = 50;
             this.tempo.Tick += new System.EventHandler(this.tempo_Tick);
+            // 
+            // BtnCG
+            // 
+            this.BtnCG.Location = new System.Drawing.Point(643, 0);
+            this.BtnCG.Name = "BtnCG";
+            this.BtnCG.Size = new System.Drawing.Size(157, 23);
+            this.BtnCG.TabIndex = 4;
+            this.BtnCG.Text = "cambia grafica (beta)";
+            this.BtnCG.UseVisualStyleBackColor = true;
+            this.BtnCG.Click += new System.EventHandler(this.BtnCG_Click);
             // 
             // Form1
             // 
@@ -54,6 +64,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BtnCG);
             this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -65,6 +76,7 @@
         #endregion
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Timer tempo;
+        private System.Windows.Forms.Button BtnCG;
     }
 }
 

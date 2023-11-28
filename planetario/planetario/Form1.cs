@@ -13,9 +13,9 @@ namespace planetario
 {
     public partial class Form1 : Form
     {
-        int i = 0;
+        int a = 0;
         int b = 0;
-        //Graphics g = new ;
+        
 
         Planetario planetario1 = new Planetario(6.67 * Math.Pow(10, -2), 1, 1);
         public Form1()
@@ -26,8 +26,9 @@ namespace planetario
         {
             this.WindowState = FormWindowState.Maximized;
             tempo.Enabled = false;
+            Graphics g = this.CreateGraphics();
 
-            Pianeta b = new Pianeta(900, 500, 800000000, 30);
+            Pianeta b = new Pianeta(900, 500, 800000000, 15);
 
             b.velocita = new Vettore(0,0);
             b.Forza= new Vettore(0, 0);
@@ -35,35 +36,63 @@ namespace planetario
 
             planetario1.pianeti.Add(b);
             
-            Pianeta c = new Pianeta(20, 20, 300, 30);
+            Pianeta c = new Pianeta(20, 20, 300, 15);
 
             c.velocita = new Vettore(0, 0);
             c.Forza = new Vettore(0, 0);
             c.accellerazione = new Vettore(0, 0);
             planetario1.pianeti.Add(c);
 
-            planetario1.StampaPlanetario(this);
+            //planetario1.StampaPlanetario(this);
+            planetario1.StampaPlanetario(g, this);
+
         }
         private void tempo_Tick(object sender, EventArgs e)
         {
-            planetario1.StampaPlanetario(this);
-            b++;
-            /*if (b%5==0) 
+            
+            if (b == 0)
             {
-                Console.WriteLine(". {0}", b);
-            }*/
+                Graphics g = this.CreateGraphics();
+                planetario1.StampaPlanetario(g, this);
+            }
+            else
+            {
+                planetario1.StampaPlanetario(this);
+            }
+
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (i == 0)
+            if (a == 0)
             {
                 tempo.Enabled = true;
-                i++;
+                a++;
             }
             else
             {
                 tempo.Enabled = false;
-                i--;
+                a--;
+            }
+        }
+
+        private void BtnCG_Click(object sender, EventArgs e)
+        {
+            Graphics g = this.CreateGraphics();
+            if (b == 0)
+            {
+                this.Controls.Clear();
+                planetario1.StampaPlanetario(this);
+                button1.Visible = true;
+                BtnCG.Visible = true;
+                b++;
+            }
+            else
+            {
+                this.Controls.Clear();
+                planetario1.StampaPlanetario(g,this);
+                button1.Visible = true;
+                BtnCG.Visible = true;
+                b--;
             }
         }
     }

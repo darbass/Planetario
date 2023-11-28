@@ -22,23 +22,30 @@ namespace planetario
             this.mtperpix = metrixpix;
         }
         
-        public void StampaPlanetario(Graphics g)
+        public void StampaPlanetario(Graphics g, Form form)
         {
             CalcolaForze();
             CalcolaAccellerazioni();
             CalcolaVelocita();
+
+            //spostamento pianeti
             foreach (var pianeta in pianeti)
             {
-                //moltiplico per secpertic in quanto se tenessimo un secondo per tic la simulazione impiegherebbe troppo temp0
+                pianeta.cancellapianeta(g, form);
+                
+                //moltiplico per secpertic in quanto se tenessimo un secondo per tic la simulazione impiegherebbe troppo tempo
                 //utilizzo math.round perche il cast tronca il valore = meno preciso
                 pianeta.Left += (int)Math.Round(pianeta.velocita.x * secpertic);
                 pianeta.Top += (int)Math.Round(pianeta.velocita.y * secpertic);
+
+                pianeta.X += (int)Math.Round(pianeta.velocita.x * secpertic);
+                pianeta.Y += (int)Math.Round(pianeta.velocita.y * secpertic);
 
                 pianeta.stampapianeta(g);
 
                 //cancella forze e accellerazioni
                 pianeta.Forza = new Vettore(0, 0);
-                pianeta.accellerazione = new Vettore(0, 0);
+                //pianeta.accellerazione = new Vettore(0, 0);
             }
         }
         public void StampaPlanetario(Form form)
@@ -59,8 +66,6 @@ namespace planetario
                 pianeta.Y += (int)Math.Round(pianeta.velocita.y * secpertic);
 
                 pianeta.stampapianeta(form);
-
-                Console.WriteLine(pianeta.X + " " + pianeta.Y);
 
                 //cancella forze e accellerazioni
                 pianeta.Forza = new Vettore(0, 0);

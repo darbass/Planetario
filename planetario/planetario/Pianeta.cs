@@ -23,7 +23,6 @@ namespace planetario
         public double massa { get; }
         public int raggio { get; }
 
-
         public Pianeta(int x, int y, double Massa, int Raggio)
         {
             //-raggio perchè top e left sono coordinate angolo in alto a sinistra di picturebox
@@ -43,7 +42,17 @@ namespace planetario
 
         public void stampapianeta(Graphics g)
         {
+            Color coloreCerchio = Color.Blue; 
+            SolidBrush pennelloCerchio = new SolidBrush(coloreCerchio);
 
+            g.FillEllipse(pennelloCerchio, this.X - this.raggio, this.Y - this.raggio, 2 * this.raggio, 2 * this.raggio);
+        }
+        public void cancellapianeta(Graphics g, Form form)
+        {
+            Color coloreCerchio = form.BackColor;
+            SolidBrush pennelloCerchio = new SolidBrush(coloreCerchio);
+
+            g.FillEllipse(pennelloCerchio, this.X - this.raggio, this.Y - this.raggio, 2 * this.raggio, 2 * this.raggio);
         }
         public void stampapianeta(Form form)
         {     
@@ -51,7 +60,7 @@ namespace planetario
             this.BackColor = Color.Blue;
             form.Controls.Add(this);
             this.Visible = true;
-            this.Size = new Size(this.raggio, this.raggio);
+            this.Size = new Size(this.raggio*2, this.raggio*2);
         }
     }
 }
