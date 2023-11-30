@@ -50,6 +50,7 @@
             // 
             // BtnCG
             // 
+            this.BtnCG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnCG.Location = new System.Drawing.Point(643, 0);
             this.BtnCG.Name = "BtnCG";
             this.BtnCG.Size = new System.Drawing.Size(157, 23);
