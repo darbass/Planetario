@@ -22,7 +22,8 @@ namespace planetario
             this.mtperpix = metrixpix;
         }
         
-        public void StampaPlanetario(Graphics g, Form form)
+        //dinamica planetario
+        public void MuoviPlanetario(Graphics g, Form form)
         {
             CalcolaForze();
             CalcolaAccellerazioni();
@@ -31,7 +32,7 @@ namespace planetario
             //spostamento pianeti
             foreach (var pianeta in pianeti)
             {
-                pianeta.cancellapianeta(g, form);
+                pianeta.sciapianeta(g, form);
                 
                 //moltiplico per secpertic in quanto se tenessimo un secondo per tic la simulazione impiegherebbe troppo tempo
                 //utilizzo math.round perche il cast tronca il valore = meno preciso
@@ -48,7 +49,7 @@ namespace planetario
                 //pianeta.accellerazione = new Vettore(0, 0);
             }
         }
-        public void StampaPlanetario(Form form)
+        public void MuoviPlanetario(Form form)
         {
             CalcolaForze();
             CalcolaAccellerazioni();
@@ -72,6 +73,41 @@ namespace planetario
                 //pianeta.accellerazione = new Vettore(0, 0);
             }
         }
+
+        //grafica planetario
+        
+        //picturebox
+        public void StampaPlanetario(Form form)
+        {
+            foreach (var pianeta in pianeti)
+            {
+                pianeta.stampapianeta(form);
+            }
+        }
+        public void cancellapianetipb()
+        {
+            foreach (var pianeta in pianeti)
+            {
+                pianeta.Visible = false;
+            }
+        }
+        //graphics
+        public void StampaPlanetario(Graphics g, Form form) 
+        {
+            foreach (var pianeta in pianeti)
+            {
+                pianeta.stampapianeta(g);
+            }
+        }
+        public void cancellapianetigr(Graphics g, Form form)
+        {
+            foreach (var pianeta in pianeti)
+            {
+                pianeta.cancellapianeta(g, form);
+            }
+        }
+
+        //fisica
         private void CalcolaForze()
         {
             if (pianeti.Count > 1)

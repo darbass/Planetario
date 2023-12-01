@@ -14,10 +14,9 @@ namespace planetario
     public partial class Form1 : Form
     {
         int a = 0;
-        int b = 0;
-        
-
+        int b = 0;  
         Planetario planetario1 = new Planetario(6.67 * Math.Pow(10, -2), 1, 1);
+
         public Form1()
         {
             InitializeComponent();
@@ -25,8 +24,9 @@ namespace planetario
         private void Form1_Load(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
+            this.BackColor = Color.Black;
             tempo.Enabled = false;
-            Graphics g = this.CreateGraphics();
+            
 
             Random rand = new Random();
 
@@ -41,42 +41,49 @@ namespace planetario
             int velocitax2 = rand.Next(0, 10);
             int velocitay1 = rand.Next(0, 10);
             int velocitay2 = rand.Next(0, 10);
+           
+            Pianeta a = new Pianeta(195, 209, 65236, 5, Color.Blue);
 
-            Pianeta b = new Pianeta(x1, x2, massa1, 15);
+            a.velocita = new Vettore(7, 1);
+            a.Forza = new Vettore(0, 0);
+            a.accellerazione = new Vettore(0, 0);
 
-            b.velocita = new Vettore(velocitax1, velocitay1);
+            planetario1.pianeti.Add(a);
+
+            Pianeta b = new Pianeta(209, 249, 1244527432, 5, Color.Red);
+
+            b.velocita = new Vettore(4, 3);
             b.Forza = new Vettore(0, 0);
             b.accellerazione = new Vettore(0, 0);
 
             planetario1.pianeti.Add(b);
 
-            Pianeta c = new Pianeta(x2, y2, massa2, 15);
+            Pianeta c = new Pianeta(x1, y1, massa1, 5, Color.Orange);
 
-            c.velocita = new Vettore(velocitax2, velocitay2);
+            c.velocita = new Vettore(velocitax1, velocitay1);
             c.Forza = new Vettore(0, 0);
             c.accellerazione = new Vettore(0, 0);
             planetario1.pianeti.Add(c);
 
-            Console.WriteLine("pianeta1 coordinate ({0},{1}), velocità {2}, massa {3}", x1, y1, b.velocita, massa1);
-            Console.WriteLine("pianeta2 coordinate ({0},{1}), velocità {2}, massa {3}", x2, y2, c.velocita, massa2);
-
-            //planetario1.StampaPlanetario(this);
+            Console.WriteLine("pianeta1 coordinate ({0},{1}), velocità {2}, massa {3}", x1, y1, c.velocita, massa1);
+            //Console.WriteLine("pianeta2 coordinate ({0},{1}), velocità {2}, massa {3}", x2, y2, c.velocita, massa2);
+        }
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = this.CreateGraphics();
             planetario1.StampaPlanetario(g, this);
-
         }
         private void tempo_Tick(object sender, EventArgs e)
-        {
-            
+        {   
             if (b == 0)
             {
                 Graphics g = this.CreateGraphics();
-                planetario1.StampaPlanetario(g, this);
+                planetario1.MuoviPlanetario(g, this);
             }
             else
             {
-                planetario1.StampaPlanetario(this);
+                planetario1.MuoviPlanetario(this);
             }
-
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -91,42 +98,23 @@ namespace planetario
                 a--;
             }
         }
-
         private void BtnCG_Click(object sender, EventArgs e)
         {
             Graphics g = this.CreateGraphics();
             if (b == 0)
             {
-                cancellapianetigr(g);
+                planetario1.cancellapianetigr(g, this);
                 planetario1.StampaPlanetario(this);
-                button1.Visible = true;
-                BtnCG.Visible = true;
-                this.BackColor = Color.Black;
                 b++;
             }
             else
             {
-                cancellapianetipb();
+                planetario1.cancellapianetipb();
                 planetario1.StampaPlanetario(g, this);
-                button1.Visible = true;
-                BtnCG.Visible = true;
-                this.BackColor = Color.White;
                 b--;
             }
         }
-        private void cancellapianetipb()
-        {
-            foreach (var pianeta in planetario1.pianeti)
-            {
-                pianeta.Visible = false;
-            }
-        }
-        private void cancellapianetigr(Graphics g)
-        {
-            foreach (var pianeta in planetario1.pianeti)
-            {
-                pianeta.cancellapianeta(g, this);
-            }
-        }
+
+       
     }
 }

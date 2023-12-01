@@ -23,44 +23,54 @@ namespace planetario
         public double massa { get; }
         public int raggio { get; }
 
-        public Pianeta(int x, int y, double Massa, int Raggio)
+        //caratteristiche visive
+        public Color colore { get; set; }
+        public Pianeta(int x, int y, double Massa, int Raggio, Color colore)
         {
             //-raggio perchè top e left sono coordinate angolo in alto a sinistra di picturebox
             this.Top = y - raggio;
             this.Left = x - raggio;
 
             // essendo picturebox rettangolo il raggio viene rappresentato da height e width
-            this.Height = raggio*2;
-            this.Width = raggio*2;
+            this.Height = raggio * 2;
+            this.Width = raggio * 2;
 
-            this.X= x;
+            this.X = x;
             this.Y = y;
 
             this.raggio = Raggio;
             this.massa = Massa;
+            this.colore = colore;
         }
-
-        public void stampapianeta(Graphics g)
-        {
-            Color coloreCerchio = Color.Blue; 
-            SolidBrush pennelloCerchio = new SolidBrush(coloreCerchio);
-
-            g.FillEllipse(pennelloCerchio, this.X - this.raggio, this.Y - this.raggio, 2 * this.raggio, 2 * this.raggio);
-        }
-        public void cancellapianeta(Graphics g, Form form)
-        {
-            Color coloreCerchio = form.BackColor;
-            SolidBrush pennelloCerchio = new SolidBrush(coloreCerchio);
-
-            g.FillEllipse(pennelloCerchio, this.X - this.raggio, this.Y - this.raggio, 2 * this.raggio, 2 * this.raggio);
-        }
+        
+        //grafica
+        //picturebox
         public void stampapianeta(Form form)
-        {     
+        {
             this.Location = new Point(this.Left, this.Top);
-            this.BackColor = Color.Blue;
+            this.BackColor = this.colore;
             form.Controls.Add(this);
             this.Visible = true;
-            this.Size = new Size(this.raggio*2, this.raggio*2);
+            this.Size = new Size(this.raggio * 2, this.raggio * 2);
         }
+        //graphics
+        public void stampapianeta(Graphics g)
+        {
+            SolidBrush pennelloCerchio = new SolidBrush(this.colore);
+            g.FillEllipse(pennelloCerchio, this.X, this.Y, 2 * this.raggio, 2 * this.raggio);
+        }   
+        public void sciapianeta(Graphics g, Form form)
+        {
+            cancellapianeta(g, form);
+            //crea scia (sfera piu piccola)
+            SolidBrush pennelloCerchio = new SolidBrush(this.colore);
+            g.FillEllipse(pennelloCerchio, this.X, this.Y, 7, 7);
+        }
+        public void cancellapianeta(Graphics g, Form form)
+        { 
+            SolidBrush pennelloCerchio = new SolidBrush(form.BackColor);
+            g.FillEllipse(pennelloCerchio, this.X, this.Y, 2 * this.raggio, 2 * this.raggio);
+        }
+        
     }
 }
