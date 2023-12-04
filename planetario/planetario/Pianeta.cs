@@ -51,7 +51,6 @@ namespace planetario
         {
             this.Location = new Point(this.Left, this.Top);
             this.BackColor = Color.Transparent;
-            
             this.SizeMode= PictureBoxSizeMode.StretchImage;
             form.Controls.Add(this);
             this.Visible = true;

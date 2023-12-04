@@ -46,7 +46,7 @@
             // 
             // tempo
             // 
-            this.tempo.Interval = 50;
+            this.tempo.Interval = 35;
             this.tempo.Tick += new System.EventHandler(this.tempo_Tick);
             // 
             // BtnCG

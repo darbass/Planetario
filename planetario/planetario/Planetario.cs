@@ -12,10 +12,10 @@ namespace planetario
     {
         public List<Pianeta> pianeti = new List<Pianeta>();
         public double G { get; set; }
-        public int secpertic { get; set; }
-        public int mtperpix { get; set; }
+        public double secpertic { get; set; }
+        public double mtperpix { get; set; }
 
-        public Planetario (double costanteG, int secondixtic, int metrixpix)
+        public Planetario (double costanteG, double secondixtic, double metrixpix)
         {
             this.G = costanteG;
             this.secpertic = secondixtic;
