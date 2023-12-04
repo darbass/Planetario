@@ -37,9 +37,9 @@ namespace planetario
             int x2 = rand.Next(0, this.ClientSize.Height - 200);
             int y1 = rand.Next(0, this.ClientSize.Height - 200);
             int y2 = rand.Next(0, this.ClientSize.Height - 200);
-            int velocitax1 = rand.Next(0, 10);
+            int velocitax1 = rand.Next(-10, 10);
             int velocitax2 = rand.Next(0, 10);
-            int velocitay1 = rand.Next(0, 10);
+            int velocitay1 = rand.Next(-10, 10);
             int velocitay2 = rand.Next(0, 10);
            
             Pianeta a = new Pianeta(195, 209, 65236, 5, Color.Blue);
@@ -47,22 +47,26 @@ namespace planetario
             a.velocita = new Vettore(7, 1);
             a.Forza = new Vettore(0, 0);
             a.accellerazione = new Vettore(0, 0);
+            a.Image = Image.FromFile("Resources\\Terra.png");
 
             planetario1.pianeti.Add(a);
 
-            Pianeta b = new Pianeta(209, 249, 1244527432, 5, Color.Red);
+            Pianeta b = new Pianeta(209, 249, 1244527432, 7, Color.Red);
 
             b.velocita = new Vettore(4, 3);
             b.Forza = new Vettore(0, 0);
             b.accellerazione = new Vettore(0, 0);
+            b.Image = Image.FromFile("Resources\\Sole.png");
 
             planetario1.pianeti.Add(b);
 
-            Pianeta c = new Pianeta(x1, y1, massa1, 5, Color.Orange);
+            Pianeta c = new Pianeta(298, 478, 77114, 5, Color.Orange);
 
-            c.velocita = new Vettore(velocitax1, velocitay1);
+            c.velocita = new Vettore(4, 1);
             c.Forza = new Vettore(0, 0);
             c.accellerazione = new Vettore(0, 0);
+            c.Image = Image.FromFile("Resources\\Marte.png");
+
             planetario1.pianeti.Add(c);
 
             Console.WriteLine("pianeta1 coordinate ({0},{1}), velocità {2}, massa {3}", x1, y1, c.velocita, massa1);
@@ -114,7 +118,5 @@ namespace planetario
                 b--;
             }
         }
-
-       
     }
 }

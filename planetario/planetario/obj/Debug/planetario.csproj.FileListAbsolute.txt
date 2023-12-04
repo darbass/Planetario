@@ -42,3 +42,7 @@ C:\Users\dario\Source\Repos\Planetario\planetario\planetario\obj\Debug\planetari
 C:\Users\dario\Source\Repos\Planetario\planetario\planetario\obj\Debug\planetario.csproj.CoreCompileInputs.cache
 C:\Users\dario\Source\Repos\Planetario\planetario\planetario\obj\Debug\planetario.exe
 C:\Users\dario\Source\Repos\Planetario\planetario\planetario\obj\Debug\planetario.pdb
+C:\Users\dario\source\repos\Planetario\planetario\planetario\bin\Debug\Resources\Terra.png
+C:\Users\dario\source\repos\Planetario\planetario\planetario\bin\Debug\Resources\Sole.png
+C:\Users\dario\source\repos\Planetario\planetario\planetario\bin\Debug\Resources\Marte.png
+C:\Users\dario\source\repos\Planetario\planetario\planetario\bin\Debug\Resources\Giove.png
