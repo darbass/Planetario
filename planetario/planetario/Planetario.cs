@@ -91,6 +91,7 @@ namespace planetario
                 pianeta.Visible = false;
             }
         }
+        
         //graphics
         public void StampaPlanetario(Graphics g, Form form) 
         {

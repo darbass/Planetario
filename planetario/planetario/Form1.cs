@@ -27,21 +27,6 @@ namespace planetario
             this.BackColor = Color.Black;
             tempo.Enabled = false;
             
-
-            Random rand = new Random();
-
-            // Generazione di variabili casuali nel range specificato
-            int massa1 = rand.Next(1000, 200000);
-            int massa2 = rand.Next(10000, 2000000000);
-            int x1 = rand.Next(0, this.ClientSize.Height - 200);
-            int x2 = rand.Next(0, this.ClientSize.Height - 200);
-            int y1 = rand.Next(0, this.ClientSize.Height - 200);
-            int y2 = rand.Next(0, this.ClientSize.Height - 200);
-            int velocitax1 = rand.Next(-10, 10);
-            int velocitax2 = rand.Next(0, 10);
-            int velocitay1 = rand.Next(-10, 10);
-            int velocitay2 = rand.Next(0, 10);
-           
             Pianeta a = new Pianeta(195, 209, 65236, 5, Color.Blue);
 
             a.velocita = new Vettore(7, 1);
@@ -69,8 +54,14 @@ namespace planetario
 
             planetario1.pianeti.Add(c);
 
-            Console.WriteLine("pianeta1 coordinate ({0},{1}), velocità {2}, massa {3}", x1, y1, c.velocita, massa1);
-            //Console.WriteLine("pianeta2 coordinate ({0},{1}), velocità {2}, massa {3}", x2, y2, c.velocita, massa2);
+            Pianeta d = new Pianeta(770, 699, 1244527457, 7, Color.SandyBrown);
+
+            d.velocita = new Vettore(1, 1);
+            d.Forza = new Vettore(0, 0);
+            d.accellerazione = new Vettore(0, 0);
+            d.Image = Image.FromFile("Resources\\Giove.png");
+
+            planetario1.pianeti.Add(d);
         }
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
