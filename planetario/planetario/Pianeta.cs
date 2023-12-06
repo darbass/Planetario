@@ -62,18 +62,16 @@ namespace planetario
             SolidBrush pennelloCerchio = new SolidBrush(this.colore);
             g.FillEllipse(pennelloCerchio, this.X, this.Y, 2 * this.raggio, 2 * this.raggio);
         }   
-        public void sciapianeta(Graphics g, Form form)
+        public void cancellapianeta(Graphics g, Color coloresfondo)
+        { 
+            SolidBrush pennelloCerchio = new SolidBrush(coloresfondo);
+            g.FillEllipse(pennelloCerchio, this.X, this.Y, 2 * this.raggio, 2 * this.raggio);
+        }
+
+        public void sciapianeta(Graphics g) 
         {
-            cancellapianeta(g, form);
-            //crea scia (sfera piu piccola)
             SolidBrush pennelloCerchio = new SolidBrush(this.colore);
             g.FillEllipse(pennelloCerchio, this.X, this.Y, 7, 7);
         }
-        public void cancellapianeta(Graphics g, Form form)
-        { 
-            SolidBrush pennelloCerchio = new SolidBrush(form.BackColor);
-            g.FillEllipse(pennelloCerchio, this.X, this.Y, 2 * this.raggio, 2 * this.raggio);
-        }
-        
     }
 }

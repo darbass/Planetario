@@ -23,17 +23,15 @@ namespace planetario
         }
         
         //dinamica planetario
-        public void MuoviPlanetario(Graphics g, Form form)
+        public void MuoviPlanetario()
         {
             CalcolaForze();
             CalcolaAccellerazioni();
             CalcolaVelocita();
 
-            //spostamento pianeti
+            //cambia coordinate
             foreach (var pianeta in pianeti)
-            {
-                pianeta.sciapianeta(g, form);
-                
+            {       
                 //moltiplico per secpertic in quanto se tenessimo un secondo per tic la simulazione impiegherebbe troppo tempo
                 //utilizzo math.round perche il cast tronca il valore = meno preciso
                 pianeta.Left += (int)Math.Round(pianeta.velocita.x * secpertic);
@@ -41,32 +39,6 @@ namespace planetario
 
                 pianeta.X += (int)Math.Round(pianeta.velocita.x * secpertic);
                 pianeta.Y += (int)Math.Round(pianeta.velocita.y * secpertic);
-
-                pianeta.stampapianeta(g);
-
-                //cancella forze e accellerazioni
-                pianeta.Forza = new Vettore(0, 0);
-                //pianeta.accellerazione = new Vettore(0, 0);
-            }
-        }
-        public void MuoviPlanetario(Form form)
-        {
-            CalcolaForze();
-            CalcolaAccellerazioni();
-            CalcolaVelocita();
-
-            //spostamento pianeti
-            foreach (var pianeta in pianeti)
-            {
-                //moltiplico per secpertic in quanto se tenessimo un secondo per tic la simulazione impiegherebbe troppo temp0
-                //utilizzo math.round perche il cast tronca il valore = meno preciso
-                pianeta.Left += (int) Math.Round(pianeta.velocita.x * secpertic);
-                pianeta.Top += (int) Math.Round(pianeta.velocita.y * secpertic);
-                
-                pianeta.X += (int)Math.Round(pianeta.velocita.x * secpertic);
-                pianeta.Y += (int)Math.Round(pianeta.velocita.y * secpertic);
-
-                pianeta.stampapianeta(form);
 
                 //cancella forze e accellerazioni
                 pianeta.Forza = new Vettore(0, 0);
@@ -93,21 +65,27 @@ namespace planetario
         }
         
         //graphics
-        public void StampaPlanetario(Graphics g, Form form) 
+        public void StampaPlanetario(Graphics g) 
         {
             foreach (var pianeta in pianeti)
             {
                 pianeta.stampapianeta(g);
             }
         }
-        public void cancellapianetigr(Graphics g, Form form)
+        public void cancellapianetigr(Graphics g, Color coloresfondo)
         {
             foreach (var pianeta in pianeti)
             {
-                pianeta.cancellapianeta(g, form);
+                pianeta.cancellapianeta(g, coloresfondo);
             }
         }
-
+        public void sciapianeti(Graphics g)
+        {
+            foreach (var pianeta in pianeti)
+            {
+                pianeta.sciapianeta(g);
+            }
+        }
         //fisica
         private void CalcolaForze()
         {
@@ -118,29 +96,21 @@ namespace planetario
                     for (int j = i + 1; j < pianeti.Count; j++)
                     {
                         //la forza che prova uno su laltro è la stessa viceversa
-                        Gravitazione(pianeti[i], pianeti[j]);
+                        double ModForza = G * (pianeti[i].massa * pianeti[j].massa) / (Math.Pow(pianeti[i].X - pianeti[j].X, 2) + Math.Pow(pianeti[i].Y - pianeti[j].Y, 2));
+
+                        Vettore cp1 = new Vettore(pianeti[i].X, pianeti[i].Y);
+                        Vettore cp2 = new Vettore(pianeti[j].X, pianeti[j].Y);
+                        Vettore forza1 = cp2 - cp1;
+                        Vettore forza2 = -1 * forza1;
+
+                        forza1 = (forza1 / forza1.Modulo()) * ModForza;
+                        forza2 = (forza2 / forza2.Modulo()) * ModForza;
+
+                        pianeti[i].Forza += forza1;
+                        pianeti[j].Forza += forza2;
                     }
                 }
             }
-        }
-        private void Gravitazione(Pianeta pianeta1, Pianeta pianeta2)
-        {
-            //distanza
-            double dx = pianeta1.X - pianeta2.X;
-            double dy = pianeta1.Y - pianeta2.Y;
-
-            double ModForza = G * (pianeta1.massa + pianeta2.massa) / (Math.Pow(dx, 2) + Math.Pow(dy, 2));
-
-            Vettore cp1 = new Vettore(pianeta1.X, pianeta1.Y);
-            Vettore cp2 = new Vettore(pianeta2.X, pianeta2.Y);
-            Vettore forza1 = cp2 - cp1;
-            Vettore forza2 = -1 * forza1;
-
-            forza1 = (forza1 / forza1.Modulo()) * ModForza;
-            forza2 = (forza2 / forza2.Modulo()) * ModForza;
-
-            pianeta1.Forza += forza1;
-            pianeta2.Forza += forza2;
         }
         private void CalcolaAccellerazioni()
         {
